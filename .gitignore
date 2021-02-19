@@ -1,2 +1,6 @@
 release/
 debug/
+.cache/
+compile_commands.json
+test_videos/
+output_videos/

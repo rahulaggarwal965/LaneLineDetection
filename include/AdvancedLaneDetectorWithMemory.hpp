@@ -22,45 +22,45 @@ private:
     cv::Mat imgpts;
     cv::Mat perspectiveMatrix;
     cv::Mat inversePerspectiveMatrix;
-    
+
     //Window Information
     int slidingWindowsPerLine;
     int slidingWindowsHalfWidth;
     int slidingWindowRecenterThresh;
-    
+
     //Size
-    
+
     //Img Real World Stuff
-    cv::Size imgDimensions;
     int laneWidthPx;
     int laneCenterPxPSP;
     cv::Point realWorldLaneSizeMeters;
-    
+
     //Maybe pre-compute some data
-    
-    
+
+
     //Memory Stuff
     bool previousLeft = false;
     bool previousRight = false;
     LaneLine previousLeftLaneLine;
     LaneLine previousRightLaneLine;
-    
+
     LaneLineHistory previousLeftLaneLines;
     LaneLineHistory previousRightLaneLines;
-    
+
 public:
+    cv::Size imgDimensions;
     //Testing Constructor
     AdvancedLaneDetectorWithMemory(std::vector<cv::Point2f> srcPSP, std::vector<cv::Point2f> dstPSP, int slidingWindowsPerLine, int slidingWindowsHalfWidth, int slidingWindowRecenterThresh, cv::Size imgDimensions = cv::Size(1280, 720), int laneWidthPx = 400, int laneCenterPxPSP = 300, cv::Point realWorldLaneSizeMeters = cv::Point(32, 3.7));
 
     //Constructor
     AdvancedLaneDetectorWithMemory(cv::Mat objpts, cv::Mat imgpts, std::vector<cv::Point2f> srcPSP, std::vector<cv::Point2f> dstPSP, int slidingWindowsPerLine, int slidingWindowsHalfWidth, int slidingWindowRecenterThresh, cv::Size imgDimensions = cv::Size(1280, 720), int laneWidthPx = 600, int laneCenterPxPSP = 800, cv::Point realWorldLaneSizeMeters = cv::Point(32, 3.7));
-    
-    
+
+
     //Processing Stuff
     std::array<LaneLine, 2> computeLaneLines(cv::Mat warped);
     double computeCenterOffset(LaneLine leftLine, LaneLine rightLine);
     void processImage(cv::Mat &image);
-    
+
     //Drawing Stuff
     void drawLaneLines(cv::Mat warped, cv::Mat &dst, LaneLine leftLine, LaneLine rightLine);
     void drawLaneArea(cv::Mat warped, cv::Mat &dst, LaneLine leftLine, LaneLine rightLine);
